@@ -1,21 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
 
-const RatingQnA = () => {
-  const [value, setValue] = React.useState(2);
+const RatingQnA = ({ handleSubmitRating }) => {
+  const [value, setValue] = useState(0);
+
+  const handleRatingChange = (newValue) => {
+    setValue(newValue);
+    handleSubmitRating(newValue);
+  };
 
   return (
-    <Box
-      sx={{
-        '& > legend': { mt: 2 },
-      }}
-    >
+    <Box sx={{ '& > legend': { mt: 2 } }}>
       <Rating
         name="simple-controlled"
         value={value}
         onChange={(event, newValue) => {
-          setValue(newValue);
+          handleRatingChange(newValue);
         }}
       />
     </Box>

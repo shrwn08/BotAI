@@ -1,41 +1,50 @@
-import React, { useState } from "react";
-import IdeaIcon from "../assets/idea.png";
-import CloseIcon from "@mui/icons-material/Close";
+import React from "react";
+import FeedbackIcon from '../assets/idea.png'
+import CloseIcon from '@mui/icons-material/Close';
+const Feedback = ({
+  handleClose,
+  textFeedback,
+  setTextFeedback,
+  handleSubmitFeedback,
+}) => {
+  const handleTextChange = (event) => {
+    setTextFeedback(event.target.value);
+  };
 
-const Feedback = ({ handleSubmitFeedback }) => {
-  const [textFeedback, setTextFeedback] = useState("");
-
-  const handleSubmit = () => {
-    handleSubmitFeedback( textFeedback);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    handleSubmitFeedback(textFeedback);
     setTextFeedback("");
   };
 
   return (
-    <div className="flex justify-center h-screen w-screen items-center p-4 fixed left-0 top-0">
-      <div className="w-full md:w-1/2 bg-white p-4 rounded-lg shadow-lg">
-        <div className="flex justify-between items-center mb-4">
-          <div className="flex items-center gap-2 text-lg font-semibold">
-            <img src={IdeaIcon} className="w-6 h-6" alt="idea" />
-            Provide Additional Feedback
-          </div>
-          <CloseIcon className="cursor-pointer" />
+    <div className="h-screen w-screen  flex flex-col bg-transparent items-center">
+      <form
+        onSubmit={handleSubmit}
+        className="w-3/4 h-[335px] bg-[#FAF7FF] flex flex-col items-center gap-4"
+      >
+        <div className="w-full flex justify-between items-center px-8">
+        <div className="flex gap-4">
+
+          <img src={FeedbackIcon}  className='w-[40px] h-[42px]' alt='feedback'/>
+          <p className="font-[sans] text-[22px] font-normal">Provide Additional Feedback</p>
         </div>
-       
+    <CloseIcon />
+        </div>
         <textarea
-          className="w-full h-24 p-2 border rounded-md"
-          placeholder="Your feedback..."
+          className="w-10/12 h-[187px] p-4 rounded-lg bg-white border-none outline-none"
+          placeholder="Your feedback here..."
           value={textFeedback}
-          onChange={(e) => setTextFeedback(e.target.value)}
+          onChange={handleTextChange}
         />
-        <div className="mt-4 flex justify-end">
-          <button
-            className="px-4 py-2 bg-purple-500 text-white rounded-md"
-            onClick={handleSubmit}
-          >
-            Submit
-          </button>
-        </div>
-      </div>
+
+        <button
+          type="submit"
+          className="w-40 h-10 rounded-xl bg-[#D7C7F4] cursor-pointer font-[ubuntu] font-bold text-base"
+        >
+          Submit
+        </button>
+      </form>
     </div>
   );
 };
